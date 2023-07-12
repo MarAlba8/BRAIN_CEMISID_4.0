@@ -24,7 +24,7 @@ class Mind:
         self.states_new_thoughts = {}
         self.new_thoughts_by_sense = {}
 
-    def call_internal_comparator(self, agent_bce: BCE, bce_senses: dict, memory_details: dict):
+    def call_internal_comparator(self, agent_bce: BCE, bce_senses: dict, memory_stats: dict):
         """
         Receive all seven BCE by sense and send it to each sense accordingly
         :param agent_bce:
@@ -38,7 +38,7 @@ class Mind:
             bce_winners[sense], bce_modified[sense] = self.senses[sense].bce_comparator(
                 agent_bce=agent_bce,
                 neuronal_network_bce=bce_senses[sense],
-                memory_details=memory_details[sense]
+                memory_details=memory_stats[sense]
             )
 
         log.msg(bce_winners)

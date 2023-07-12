@@ -1,0 +1,47 @@
+from history import History
+
+if __name__ == "__main__":
+    h = History()
+    b = h.memories.get('biological')
+
+    h.add_pattern(event='Agrado_b', sense='sight', neuron_number=1)
+    h.add_pattern(event='Agrado_e', sense='sight', neuron_number=89)
+    h.add_memory(event='Cancion', sense='sight', neuron_number=2, pattern_list=['Agrado'])
+    h.add_memory(event='Tesis', sense='sight', neuron_number=3, pattern_list=['Cancion'])
+    h.fill_life_episode(event='Pelicula', sense='sight', neuron_number=9, pattern_list=['Tesis'])
+    h.handle_attention('biological', 'Pelicula,Tesis,Cancion')
+    h.handle_attention('emotional', 'Pelicula,Tesis,Cancion')
+
+    print(h.get_stats())
+    print(b.get_all())
+
+    MEMORIES = {
+        'hearing': {
+            'biological': 1,
+            'cultural': 1,
+            'emotional': 1
+        },
+        'touch': {
+            'biological': 1,
+            'cultural': 1,
+            'emotional': 0
+        },
+        'sight': {
+            'biological': 1,
+            'cultural': 0,
+            'emotional': 0
+        },
+        'smell': {
+            'biological': 1,
+            'cultural': 0,
+            'emotional': 0
+        },
+        'taste': {
+            'biological': 1,
+            'cultural': 0,
+            'emotional': 0
+        },
+    }
+
+    print(h.get_memory_sequences(MEMORIES))
+

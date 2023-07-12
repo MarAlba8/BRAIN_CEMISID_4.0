@@ -48,7 +48,7 @@ class Conscious:
     def update_phis(self, state: str = None, thought:str = None):
         if thought and state:
             self._phi_windows[state] = thought
-            ## TODO: call Memory
+            ## TODO: call memory
         else:
             states = self._phi_windows.keys()
             for state in states:

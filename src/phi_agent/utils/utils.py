@@ -12,3 +12,7 @@ def bce_agent_to_mind_translator(bce_senses: list):
         mind_bce[sense_name]["emotional"] = states.emocional
 
     return mind_bce
+
+def get_temporal_memory(memories):
+    ## falta por definir
+    pass
