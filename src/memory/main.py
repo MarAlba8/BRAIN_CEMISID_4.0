@@ -29,12 +29,12 @@ if __name__ == "__main__":
         'touch': {
             'biological': 1,
             'cultural': 1,
-            'emotional': 0
+            'emotional': 1
         },
         'sight': {
             'biological': 1,
-            'cultural': 0,
-            'emotional': 0
+            'cultural': 1,
+            'emotional': 1
         },
         'smell': {
             'biological': 1,

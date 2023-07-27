@@ -96,7 +96,8 @@ class Memory:
             return
 
         for pattern in memory['pattern_list']:
-            self._traverse_memory(self.life_history[pattern], memory_sequence)
+            if self.life_history.get(pattern, None) is not None:
+                self._traverse_memory(self.life_history[pattern], memory_sequence)
 
     def get_stats(self):
         return self.stats
