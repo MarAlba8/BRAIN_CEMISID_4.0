@@ -33,6 +33,11 @@ class Sensory_system():
     
     
     def init_patterns(self,arr_patternes_bce):
+        list_return=[]
         for index, _ in enumerate(self.list_senses):
-            self.senses[index].init_patterns(arr_patternes_bce[index])
+            list_return.append(self.senses[index].init_patterns(arr_patternes_bce[index]))
+        return list_return
         
+    def reset(self):
+        for index, sense in enumerate(self.list_senses):
+            self.senses[index].reset()
