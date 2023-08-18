@@ -1,40 +1,119 @@
+import random
+
 from phi_agent.settings import SENSES
+from phi_agent.settings import STATES
 
 MEMORIES = {
-    'hearing': {
-        'biological': f"hearing:biological",
-        'cultural': f"hearing:cultural",
-        'emotional': f"hearing:emotional"
+    "Movie": {
+        'hearing': {
+            'biological': f"childhood_movie::song",
+            'cultural': f"childhood_movie:song",
+            'emotional': f"childhood_movie:song"
+        },
+        'touch': {
+            'biological': "childhood_movie:sense_chair",
+            'cultural': "childhood_movie:sense_chair",
+            'emotional': "childhood_movie:sense_chair"
+        },
+        'sight': {
+            'biological': f"childhood_movie:images",
+            'cultural': f"childhood_movie:images",
+            'emotional': f"childhood_movie:images"
+        },
+        'smell': {
+            'biological': f"childhood_movie:pop_corns_smell",
+            'cultural': f"childhood_movie:pop_corns_smell",
+            'emotional': f"childhood_movie:pop_corns_smell"
+        },
+        'taste': {
+            'biological': f"childhood_movie:pop_corn_taste",
+            'cultural': f"childhood_movie:pop_corn_taste",
+            'emotional': f"childhood_movie:pop_corn_taste"
+        },
+        'body': {
+            'biological': f"childhood_movie:sense_mouth_location",
+            'cultural': f"childhood_movie:sense_mouth_location",
+            'emotional': f"bchildhood_movie:sense_mouth_location"
+        },
+        'time': {
+            'biological': "childhood_movie:time_slow",
+            'cultural': "childhood_movie:time_slow",
+            'emotional': "childhood_movie:time_slow"
+        }
     },
-    'touch': {
-        'biological': "touch:biological",
-        'cultural': "touch:cultural",
-        'emotional': "touch:emotional"
+    "Song": {
+        'hearing': {
+            'biological': f"childhood_song:agua fria",
+            'cultural': f"childhood_song:tesis",
+            'emotional': f"childhood_song:nostalgia"
+        },
+        'touch': {
+            'biological': "childhood_song",
+            'cultural': "childhood_song",
+            'emotional': "childhood_song"
+        },
+        'sight': {
+            'biological': f"childhood_song:tesis",
+            'cultural': f"childhood_song:tesis",
+            'emotional': f"childhood_song:good"
+        },
+        'smell': {
+            'biological': f"childhood_song",
+            'cultural': f"childhood_song",
+            'emotional': f"childhood_song"
+        },
+        'taste': {
+            'biological': f"childhood_song",
+            'cultural': f"childhood_song",
+            'emotional': f"childhood_song"
+        },
+        'body': {
+            'biological': f"childhood_song",
+            'cultural': f"childhood_song",
+            'emotional': f"childhood_song"
+        },
+        'time': {
+            'biological': "childhood_song",
+            'cultural': "childhood_song",
+            'emotional': "childhood_song"
+        }
     },
-    'sight': {
-        'biological': f"sight:biological",
-        'cultural': f"sight:cultural",
-        'emotional': f"sight:emotional"
-    },
-    'smell': {
-        'biological': f"smell:biological",
-        'cultural': f"smell:cultural",
-        'emotional': f"smell:emotional"
-    },
-    'taste': {
-        'biological': f"taste:biological",
-        'cultural': f"taste:cultural",
-        'emotional': f"taste:emotional"
-    },
-    'body': {
-        'biological': f"body:biological",
-        'cultural': f"body:cultural",
-        'emotional': f"body:emotional"
-    },
-    'time': {
-        'biological': "body:biological",
-        'cultural': "body:cultural",
-        'emotional': "body:emotional"
+    "Study": {
+        'hearing': {
+            'biological': f"last_semester",
+            'cultural': f"last_semester",
+            'emotional': f"last_semester"
+        },
+        'touch': {
+            'biological': "last_semester",
+            'cultural': "last_semester",
+            'emotional': "last_semester"
+        },
+        'sight': {
+            'biological': f"last_semester",
+            'cultural': f"last_semester",
+            'emotional': f"last_semester"
+        },
+        'smell': {
+            'biological': f"last_semester",
+            'cultural': f"last_semester",
+            'emotional': f"last_semester"
+        },
+        'taste': {
+            'biological': f"last_semester",
+            'cultural': f"last_semester",
+            'emotional': f"last_semester"
+        },
+        'body': {
+            'biological': f"last_semester",
+            'cultural': f"last_semester",
+            'emotional': f"last_semester"
+        },
+        'time': {
+            'biological': "last_semester",
+            'cultural': "last_semester",
+            'emotional': "last_semester"
+        }
     }
 }
 
@@ -78,37 +157,42 @@ CURRENT_EVENTS = {
 
 
 class Memory:
+    def __init__(self):
+        self.temporal_memory = {}
+
+    def set_event(self, event):
+        self.event = event
+
     def get_memories(self, bce_modified_by_senses: dict):
 
-        print(f"bce_modified_by_sense: {bce_modified_by_senses}")
-        states = {
-            "biological": 0,
-            "cultural": 0,
-            "emotional": 0,
-        }
-
         memories = {}
-        for sense in SENSES:
-            # just to create the dictionary with the states
-            memories[sense] = states
 
-        for sense in bce_modified_by_senses:
+        for sense in SENSES:
             bce_by_sense = bce_modified_by_senses[sense]
-            for state in bce_by_sense:
+            memories[sense] = {}
+            for state in STATES:
+                memories[sense][state] = 0
                 bce_modified = bce_by_sense[state]
                 if bce_modified:
-                    memories[sense][state] = MEMORIES[sense][state]
+                    memories[sense][state] = self.temporal_memory[sense][state] + " -> " + MEMORIES[self.event][sense][state]
 
         return memories
 
     def get_current_temporal_memory(self):
-        return CURRENT_EVENTS
+        for sense in SENSES:
+            self.temporal_memory[sense] = {}
+            for state in STATES:
+                self.temporal_memory[sense][state] = self.event
+        return self.temporal_memory
 
     def get_details(self):
         details = {}
         for sense in CURRENT_EVENTS:
-            details[sense] = {
-                "number_registers": 10,
-                "number_occurrences": 9,
-            }
+            details[sense] = {}
+            for state in STATES:
+                num_registers = 1000
+                details[sense][state] = {
+                    "number_registers": num_registers,
+                    "number_occurrences": round(random.randint(0,num_registers)),
+                }
         return details

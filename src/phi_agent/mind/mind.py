@@ -47,9 +47,10 @@ class Mind:
     def update_attention(self, memories: dict, temporal_memory: dict):
 
         for sense in self.senses:
-            self.new_thoughts_by_sense[sense] = self.senses[sense].thought_picker(
+            new_thoughts = self.senses[sense].thought_picker(
                 memories[sense], temporal_memory[sense]
             )
+            self.new_thoughts_by_sense[sense] = new_thoughts
 
         self.states_new_thoughts = general_evaluator(
             self.new_thoughts_by_sense
@@ -62,6 +63,9 @@ class Mind:
         len_emotional = len(self.states_new_thoughts["emotional"])
 
         max_len_state_thoughts = max(len_biological, len_cultural, len_emotional)
+
+        log.msg("Updating attention")
+
         for i in range(max_len_state_thoughts):
             if i < len_biological:
                 thought = self.states_new_thoughts["biological"][i]
@@ -75,8 +79,10 @@ class Mind:
                 thought = self.states_new_thoughts["emotional"][i]
                 self.conscious.update_scope(state="emotional", thought=thought)
 
-            sleep(1)
+            # sleep(1)
 
+        log.msg("Current Phis")
+        log.msg(self.conscious.get_phis())
         return self.states_new_thoughts
 
     def get_unified_bce(self, bce_by_senses: dict):

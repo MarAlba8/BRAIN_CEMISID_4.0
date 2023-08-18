@@ -14,9 +14,9 @@ class SubconsciousBySense:
 
     def thought_picker(self, memories: dict, temporal_memory: dict):
         current_thoughts = self.conscious.get_phis()
-        # for state in current_thoughts:
-        #     if not current_thoughts[state]:
-        #         current_thoughts[state] = temporal_memory[state]
+        for state in current_thoughts:
+            if not current_thoughts[state]:
+                current_thoughts[state] = temporal_memory[state]
 
         new_thoughts = self.new_thought_selector(memories, current_thoughts, self.bce_modified)
         return new_thoughts
@@ -61,17 +61,6 @@ class SubconsciousBySense:
 
         return self.bce_winners, self.bce_modified
 
-    # def primary_evaluator(self, agent_states: dict, new_states: dict):
-    #     bce_modified = self.bce_modified
-    #
-    #     for state in agent_states:
-    #         if agent_states[state] != new_states[state]:
-    #             bce_modified[state] = 1
-    #         else:
-    #             bce_modified[state] = 0
-    #
-    #     return bce_modified
-
     def new_thought_selector(
             self,
             memories: dict,
@@ -89,11 +78,10 @@ class SubconsciousBySense:
         :return: Descriptors of the new thoughts
         """
 
-        # new_thoughts = {}
+        new_thoughts = {}
         for state in current_thoughts:
-            # if not current_thoughts[state]:
-            #     new_thoughts[state] = memories[state]
-            # elif states_modified[state]:
             if states_modified[state]:
-                current_thoughts[state] = memories[state]  # solo regresa los estados que se actualizaron
-        return current_thoughts
+                new_thoughts[state] = memories[state]  # solo regresa los estados que se actualizaron
+            else:
+                new_thoughts[state] = current_thoughts[state]
+        return new_thoughts

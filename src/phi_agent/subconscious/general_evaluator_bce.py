@@ -2,7 +2,6 @@ from phi_agent.utils.bce import BCE
 
 
 def general_evaluator_bce(bce_by_senses: dict) -> BCE:
-    ##TODO: Aplicar fuzzy logic
     bigger_bce = BCE()
     for sense in bce_by_senses:
         bce_states = bce_by_senses[sense]

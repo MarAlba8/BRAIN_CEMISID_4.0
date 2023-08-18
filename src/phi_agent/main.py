@@ -1,5 +1,5 @@
 from mind.mind import Mind
-from memories_mock import memory
+from memories_mock import Memory
 from settings import log
 from utils.need import Need
 from utils.utils import bce_agent_to_mind_translator
@@ -30,19 +30,19 @@ if __name__ == '__main__':
     agent_bce = BCE(need_bio=Need(1,2), need_emo=Need(0,0), need_cul=Need(0,3))
 
     for i in range(3):
-
-        bce_7 = [[[0, bce], 'sight'],
-                 [[2, bce], 'hearing'],
-                 [[0, bce], 'taste'],
-                 [[2, bce], 'touch'],
-                 [[0, bce], 'body'],
-                 [[0, bce], 'smell'],
-                 [[0, bce], 'time']]
+        bce_7 = [[[0, BCE(need_bio=Need(0, 3), need_emo=Need(0, 1), need_cul=Need(1, 0))], 'sight'],
+                 [[2, BCE()], 'hearing'],
+                 [[0, BCE()], 'taste'],
+                 [[0, BCE(need_bio=Need(0, 1), need_emo=Need(1, 3), need_cul=Need(1, 0))], 'touch'],
+                 [[0, BCE()], 'body'],
+                 [[0, BCE()], 'smell'],
+                 [[0, BCE()], 'time']]
 
         rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
 
         # memories for testing (Daniel)
-        memory = memory()
+        memory = Memory()
+        memory.set_event("Movie")
 
         ## get_details -> Details for all senses
         # details["hearing"] = {
@@ -65,9 +65,9 @@ if __name__ == '__main__':
         #     "emotional": 1,
         # }
         ##
+        temporal_memory = memory.get_current_temporal_memory()
         memories = memory.get_memories(bce_modified_by_senses=bce_modified)
 
-        temporal_memory = memory.get_current_temporal_memory()
         mind.update_attention(memories=memories, temporal_memory=temporal_memory)
 
         new_bce = mind.get_unified_bce(bce_by_senses=bce_winners)
