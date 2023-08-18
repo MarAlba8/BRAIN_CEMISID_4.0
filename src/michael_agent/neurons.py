@@ -9,7 +9,6 @@ class Neurons():
 
     def set_event(self, string):
         pattern, event = string.split(":")
-        
         if event not in self.learned_neurons:
             self.neuron_to_learn[event]=[len(self.learned_neurons),self.learned_neurons[pattern][1]]
             return self.neuron_to_learn[event]

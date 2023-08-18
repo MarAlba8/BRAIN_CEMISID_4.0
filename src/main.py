@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     event_generator = Generator()
     event_generator.gen_patterns()
-
+    sensory_system.init_patterns(event_generator.gen_patterns())
     #entrada de eventos a la red neuronal de michael
     bce_7 = sensory_system.set_event(event_generator.gen_event())
 
