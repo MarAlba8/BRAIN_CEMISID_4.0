@@ -33,6 +33,7 @@ class Mind:
         """
         bce_modified = {}
         bce_winners = {}
+        #print("DEBUG_MIND",memory_stats.values())
         for sense in self.senses:
             bce_winners[sense] = {}
             bce_winners[sense], bce_modified[sense] = self.senses[sense].bce_comparator(

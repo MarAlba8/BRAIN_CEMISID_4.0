@@ -22,6 +22,11 @@ class Sensory_system():
             list_id_bce.append(self.senses[index].set_event(arr_event[index]))
         return list_id_bce
         
+    def to_memory(self):
+        list_return=[]
+        for index, _ in enumerate(self.list_senses):
+            list_return.append(self.senses[index].to_memory())     
+        return list_return
 
     def update_neuron(self, arr_bce):
         list_id_bce=[]

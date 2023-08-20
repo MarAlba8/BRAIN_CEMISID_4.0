@@ -1,2 +1,8 @@
 __pycache__/*
 **/__pycache__/*
+src/phi_agent/__pycache__/*
+src/phi_agent/conscious/__pycache__/*
+src/phi_agent/mind/__pycache__/*
+src/phi_agent/subconscious/__pycache__/*
+src/phi_agent/utils/__pycache__/*
+

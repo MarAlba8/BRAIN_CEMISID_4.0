@@ -9,6 +9,11 @@ class History:
             'cultural': Memory('cultural')
         }
 
+    def init_history(self,arr_patters):
+        for sense_patters in arr_patters:
+            for pattern in sense_patters:
+                self.add_pattern(pattern[0], pattern[1], pattern[2])
+
     def get_memory_sequences(self, params: dict):
         memory_sequence_by_sense = {}
 
