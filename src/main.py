@@ -15,14 +15,19 @@ if __name__ == '__main__':
     mind = Mind()
 
     event_generator = Generator()
-    event_generator.gen_patterns()
-    sensory_system.init_patterns(event_generator.gen_patterns())
+    patters=event_generator.gen_patterns()
+    #print("DEBUG",len(patters))
+    init_patters=sensory_system.init_patterns(patters)
+    #print("DEBUG_init_patters",init_patters)
+    memory.init_history(sensory_system.to_memory())
+    
     #entrada de eventos a la red neuronal de michael
     bce_7 = sensory_system.set_event(event_generator.gen_event())
 
     #entrada del comparador 1 de maria para actualizar los bce de las neuronas
     rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
     memory_stats = memory.get_stats()
+    #print("DEBUG_MEMORY",memory_stats)
     bce_winners, bce_modified = mind.call_internal_comparator(
         agent_bce=intelligent_agent.status(),
         bce_senses=rn_bce_by_senses,
