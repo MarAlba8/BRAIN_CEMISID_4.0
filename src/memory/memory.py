@@ -42,6 +42,9 @@ class Memory:
             'pattern_list': pattern_list
         }
 
+        if sense not in self.stats:
+            self.stats[sense] = {'number_registers': 0, 'number_occurrences': 0}
+
         self.stats[sense]['number_occurrences'] = 0
         for key, values in self.life_history.items():
             if values['pattern_list'] is not None and event in values['pattern_list']:
@@ -81,16 +84,20 @@ class Memory:
                 memory = self.life_history.get(pattern, None)
                 self._traverse_memory(memory=memory, memory_sequence=memory_sequence)
 
-        return memory_sequence
+        return ','.join(memory_sequence)
 
     def _traverse_memory(self, memory: dict, memory_sequence: list):
+        if memory is None:
+            return
+
         memory_sequence.append(memory['event'])
 
         if self.life_history[memory['event']]['pattern_list'] is None:
             return
 
         for pattern in memory['pattern_list']:
-            self._traverse_memory(self.life_history[pattern], memory_sequence)
+            if self.life_history.get(pattern, None) is not None:
+                self._traverse_memory(self.life_history[pattern], memory_sequence)
 
     def get_stats(self):
         return self.stats

@@ -1,4 +1,6 @@
-from memory.memory import Memory
+import json
+from collections import defaultdict
+from memory import Memory
 
 
 class History:
@@ -20,7 +22,6 @@ class History:
         for sense, sense_params in params.items():
             memory_sequence = {}
             for memory_type, memory_instance in self.memories.items():
-                suffix = None
                 if sense_params[memory_type] == 1:
                     memory_sequence[memory_type] = memory_instance.get_memory_sequence(sense)
 
@@ -64,8 +65,30 @@ class History:
         memory_instance.handle_attention(memory_sequence, pattern)
 
     def get_stats(self):
-        stats = {}
-        for memory_type, memory_instance in self.memories.items():
-            stats[memory_type] = memory_instance.get_stats()
+        stats = defaultdict(lambda: defaultdict(lambda: {'number_registers': 0, 'number_occurrences': 0}))
+        all_memory_types = set(self.memories.keys())
 
-        return stats
+        for memory_type, memory_instance in self.memories.items():
+            memory_stats = memory_instance.get_stats()
+            for sense, sense_stats in memory_stats.items():
+                stats[sense][memory_type].update(sense_stats)
+
+        for sense_stats in stats.values():
+            for memory_type in all_memory_types:
+                sense_stats.setdefault(memory_type, {'number_registers': 0, 'number_occurrences': 0})
+
+        stats_json = json.dumps(stats)
+        stats_dict = json.loads(stats_json)
+
+        return stats_dict
+
+    def get_life_episodes(self):
+        life_episodes = {}
+
+        for memory_type, memory_instance in self.memories.items():
+            for event, episode in memory_instance.life_episode.items():
+                sense = episode['sense']
+                if sense not in life_episodes:
+                    life_episodes[sense] = episode
+
+        return life_episodes
