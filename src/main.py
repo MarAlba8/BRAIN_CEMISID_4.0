@@ -36,7 +36,7 @@ if __name__ == '__main__':
     #print("DEBUG_bce_winners",bce_winners)
     # Se requiere que bce_winners contenga en values los BCE de cada sentido 
     arr_bce_winners=sensory_system.get_bce_from_mind(bce_winners)
-    #print("DEBUG,ARR_WINNERS",arr_bce_winners)
+    #print("DEBUG,ARR_WINNERS",type(arr_bce_winners[0]))
     sensory_system.update_neuron(arr_bce_winners)
 
     memories = memory.get_memory_sequences(params=bce_modified)
