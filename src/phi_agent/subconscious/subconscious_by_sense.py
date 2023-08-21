@@ -31,11 +31,11 @@ class SubconsciousBySense:
         for state in neuronal_network_bce.keys():
             rn_value = neuronal_network_bce[state]
             if state == "biological":
-                agent_value = agent_bce.biologico
+                agent_value = agent_bce.biological
             elif state == "cultural":
-                agent_value = agent_bce.cultural
+                agent_value = agent_bce.culture
             elif state == "emotional":
-                agent_value = agent_bce.emocional
+                agent_value = agent_bce.emotional
 
             if rn_value == agent_value:
 

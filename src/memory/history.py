@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from memory import Memory
+from memory.memory import Memory
 
 
 class History:

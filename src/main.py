@@ -7,18 +7,19 @@ from memory.history import History
 from phi_agent.mind.mind import Mind
 from phi_agent.utils.utils import bce_agent_to_mind_translator, get_temporal_memory
 
-
 if __name__ == '__main__':
     sensory_system = Sensory_system()
     intelligent_agent = Intelligent_agent()
     memory = History()
     mind = Mind()
 
+
     event_generator = Generator()
     patters=event_generator.gen_patterns()
-    #print("DEBUG",len(patters))
+    
+    
+    #Inicializar el modulo
     init_patters=sensory_system.init_patterns(patters)
-    #print("DEBUG_init_patters",init_patters)
     memory.init_history(sensory_system.to_memory())
     
     #entrada de eventos a la red neuronal de michael
@@ -27,13 +28,16 @@ if __name__ == '__main__':
     #entrada del comparador 1 de maria para actualizar los bce de las neuronas
     rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
     memory_stats = memory.get_stats()
-    #print("DEBUG_MEMORY",memory_stats)
     bce_winners, bce_modified = mind.call_internal_comparator(
         agent_bce=intelligent_agent.status(),
         bce_senses=rn_bce_by_senses,
         memory_stats=memory_stats
     )
-    sensory_system.update_neuron(bce_winners)
+    #print("DEBUG_bce_winners",bce_winners)
+    # Se requiere que bce_winners contenga en values los BCE de cada sentido 
+    arr_bce_winners=sensory_system.get_bce_from_mind(bce_winners)
+    #print("DEBUG,ARR_WINNERS",arr_bce_winners)
+    sensory_system.update_neuron(arr_bce_winners)
 
     memories = memory.get_memory_sequences(params=bce_modified)
     ## falta tomar la primera parte de lo que Daniel regrese, lo que se guardara

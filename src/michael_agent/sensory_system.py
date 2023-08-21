@@ -36,7 +36,13 @@ class Sensory_system():
                 list_id_bce.append(resultado)
         return list_id_bce
     
-    
+    def get_bce_from_mind(self,dictionary):
+        list_return=[]
+        for _, key in enumerate(self.list_senses):
+            list_return.append(dictionary[key])
+        
+        return list_return
+
     def init_patterns(self,arr_patternes_bce):
         list_return=[]
         for index, _ in enumerate(self.list_senses):
