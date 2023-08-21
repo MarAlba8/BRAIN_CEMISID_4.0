@@ -3,7 +3,7 @@ def bce_agent_to_mind_translator(bce_senses: list):
 
     for sense in bce_senses:
         # Need()
-        sense_name = sense[2]
+        sense_name = sense[4]
         states = sense[1]
 
         mind_bce[sense_name] = {}

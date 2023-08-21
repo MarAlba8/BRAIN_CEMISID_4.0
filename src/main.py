@@ -24,7 +24,9 @@ if __name__ == '__main__':
     
     #entrada de eventos a la red neuronal de michael
     bce_7 = sensory_system.set_event(event_generator.gen_event())
-
+    memory.get_events(bce_7)
+    
+    #print("DEBUG_BCE_7",bce_7)
     #entrada del comparador 1 de maria para actualizar los bce de las neuronas
     rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
     memory_stats = memory.get_stats()
@@ -38,6 +40,7 @@ if __name__ == '__main__':
     arr_bce_winners=sensory_system.get_bce_from_mind(bce_winners)
     #print("DEBUG,ARR_WINNERS",type(arr_bce_winners[0]))
     sensory_system.update_neuron(arr_bce_winners)
+    
 
     memories = memory.get_memory_sequences(params=bce_modified)
     ## falta tomar la primera parte de lo que Daniel regrese, lo que se guardara

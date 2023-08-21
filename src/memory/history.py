@@ -16,6 +16,15 @@ class History:
             for pattern in sense_patters:
                 self.add_pattern(pattern[0], pattern[1], pattern[2])
 
+    def get_events(self,arr_events):
+        for value in arr_events:
+            id_neuron = value[0]
+            sense = value[4]
+            event = value[3]
+            patter = [value[2]]
+            self.add_memory(id_neuron, sense, event, patter)
+
+
     def get_memory_sequences(self, params: dict):
         memory_sequence_by_sense = {}
 
