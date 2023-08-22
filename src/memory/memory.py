@@ -21,15 +21,6 @@ class Memory:
                     if memory is not None and memory['pattern_list'] is not None:
                         memory['linked_to'].append(event)
 
-        # Cancion -> pattern_list: [Agrado]
-        # Tesis -> pattern_list: [Cancion]
-        # Cancion -> pattern_list: [Agrado], linked_to: [Tesis]
-
-        # Pelicula -> pattern_list: [Tesis]
-        # Tesis -> pattern_list: [Cancion], linked_to: [Pelicula]
-
-        # Tesis, Pelicula, Cancion, Agrado
-
         self.stats.setdefault(sense, {'number_registers': 0})
         self.stats[sense]['number_registers'] += 1
         self.life_history[event] = new_memory
@@ -53,14 +44,11 @@ class Memory:
         self.life_episode[event] = life_episode
 
     def update_memory(self, event, pattern):
-        # What about if multiple patterns are linked to that memory??? 🤔
         self.life_history[event]['pattern_list'] = [pattern]
 
     def handle_attention(self, memory_sequence, pattern=None):
         new_event_key = memory_sequence.split(',')[0]
         new_event = self.life_episode.get(new_event_key, None)
-
-        # handle bidirectional memories
 
         if self.life_history.get(new_event_key, None) is None and new_event is not None:
             self.add_memory(**new_event)
@@ -76,7 +64,6 @@ class Memory:
         memory_sequence = []
 
         if event:
-            # let's say an event exists in life_history, would it have the same patterns?
             element = self.life_history.get(event['event']) or event
 
             memory_sequence.append(element['event'])

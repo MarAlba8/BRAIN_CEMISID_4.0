@@ -1,6 +1,7 @@
 import json
 from collections import defaultdict
-from memory.memory import Memory
+
+from src.memory.memory import Memory
 
 
 class History:
@@ -21,9 +22,8 @@ class History:
             id_neuron = value[0]
             sense = value[4]
             event = value[3]
-            patter = [value[2]]
-            self.add_memory(id_neuron, sense, event, patter)
-
+            pattern = [value[2]]
+            self.fill_life_episode(id_neuron, sense, event, pattern)
 
     def get_memory_sequences(self, params: dict):
         memory_sequence_by_sense = {}

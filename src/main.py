@@ -45,7 +45,7 @@ if __name__ == '__main__':
     memories = memory.get_memory_sequences(params=bce_modified)
     ## falta tomar la primera parte de lo que Daniel regrese, lo que se guardara
     # como memoria temporal
-    temporal_memory = get_temporal_memory(memories)
+    temporal_memory = memory.get_life_episodes()
     new_thoughts_by_factor = mind.update_attention(memories=memories, temporal_memory=temporal_memory)
 
     for factor in new_thoughts_by_factor:
