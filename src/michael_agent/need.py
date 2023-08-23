@@ -211,24 +211,26 @@ class Need():
         self.state=[sign,degree]
         return self
 
-    def average(self, other):
-        if self.state[0]==0:
-            item1=self.state[1]
-        else:
-            item1=self.state[1]*(-1)
+    def average(*args):
+        if not args:
+            return None  # Si no se proporcionan valores, retorna None o algún otro valor apropiado
 
-        if other.state[0]==0:
-            item2=other.state[1]
-        else:
-            item2=other.state[1]*(-1)
+        items=[]
+        for item in args :
+            if item.state[0]==0:
+                items.append(item.state[1])
+            else:
+                items.append(item.state[1]*(-1))
 
-        avg=(item1+item2)//2
+        total = sum(items)
+        avg = total // len(args)
 
         if avg==0:
-            return Need(self.state[0],abs(avg))+Need(0,0)
+            return Need(args[0].state[0],avg)
         elif avg<0:
             return Need(1,abs(avg))+Need(0,0)
         else:
             return Need(0,abs(avg))+Need(1,0)
+
 
         

@@ -28,7 +28,7 @@ class Neurons():
         if bool(self.neuron_to_learn):
             event, value = self.neuron_to_learn.popitem()
             id_neurona = len(self.learned_neurons)
-            self.learned_neurons[event]=[id_neurona,(bce.average(value[1])),value[2],value[3]]
+            self.learned_neurons[event]=[id_neurona,(BCE.average(bce,value[1])),value[2],value[3]]
             return self.learned_neurons[event]
         else:
             return self.tmp 

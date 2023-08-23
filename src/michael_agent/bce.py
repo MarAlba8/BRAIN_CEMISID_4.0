@@ -87,8 +87,21 @@ class BCE():
         self.emotional.reset()
         return self
 
-    def average(self,other):
-        return BCE(self.biological.average(other.biological),self.culture.average(other.culture),self.emotional.average(other.emotional))
+    def average(*args):
+        if len(args)==0:
+            return None
+
+        bio=[]
+        cul=[]
+        emo=[]
+
+        for item in args:
+            bio.append(item.biological)
+            cul.append(item.culture)
+            emo.append(item.emotional)
+        
+        return BCE(Need.average(*bio),Need.average(*cul),Need.average(*emo))
+
 
     def sample(self):
         return BCE(self.biological.sample(),self.culture.sample(),self.emotional.sample())
