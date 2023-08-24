@@ -32,18 +32,17 @@ class Mind:
         :return: BCE that wins inside the internal comparator
         """
         bce_modified = {}
-        bce_winners = {}
         #print("DEBUG_MIND",memory_stats.values())
         for sense in self.senses:
-            bce_winners[sense] = {}
-            bce_winners[sense], bce_modified[sense] = self.senses[sense].bce_comparator(
+            self.bce_winners[sense] = {}
+            self.bce_winners[sense], bce_modified[sense] = self.senses[sense].bce_comparator(
                 agent_bce=agent_bce,
                 neuronal_network_bce=bce_senses[sense],
                 memory_details=memory_stats[sense]
             )
 
-        log.msg(bce_winners)
-        return bce_winners, bce_modified
+        log.msg(self.bce_winners)
+        return self.bce_winners, bce_modified
 
     def update_attention(self, memories: dict, temporal_memory: dict):
 
@@ -86,17 +85,8 @@ class Mind:
         log.msg(self.conscious.get_phis())
         return self.states_new_thoughts
 
-    def get_unified_bce(self, bce_by_senses: dict):
+    def get_unified_bce(self):
         unified_bce = general_evaluator_bce(
-            bce_by_senses=bce_by_senses
+            bce_by_senses=self.bce_winners
         )
         return unified_bce
-
-    #     self.send_thoughts_to_memory()
-    #
-    # def send_thoughts_to_memory(self):
-    #     memory_data = {
-    #         "thoughts": self.conscious.get_thoughts_in_scope()
-    #     }
-    #     #print(f"Sending memory data: {memory_data}")
-    #    #self.memory.update_memory(memory_data)

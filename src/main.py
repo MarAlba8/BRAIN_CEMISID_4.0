@@ -13,7 +13,6 @@ if __name__ == '__main__':
     memory = History()
     mind = Mind()
 
-
     event_generator = Generator()
     patterns = event_generator.gen_patterns()
     
@@ -44,12 +43,13 @@ if __name__ == '__main__':
     memories = memory.get_memory_sequences(params=bce_modified)
     ## falta tomar la primera parte de lo que Daniel regrese, lo que se guardara
     # como memoria temporal
-    temporal_memory = memory.get_life_episodes()
+    life_episodes = memory.get_life_episodes()
+    temporal_memory = get_temporal_memory(life_episodes)
     new_thoughts_by_factor = mind.update_attention(memories=memories, temporal_memory=temporal_memory)
 
     for factor in new_thoughts_by_factor:
         for memory_sequence in new_thoughts_by_factor[factor]:
             memory.handle_attention(factor, memory_sequence=memory_sequence)
 
-    new_bce = mind.get_unified_bce(bce_by_senses=bce_winners)
+    new_bce = mind.get_unified_bce()
     intelligent_agent.add_bce(new_bce)

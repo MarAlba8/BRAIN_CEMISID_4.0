@@ -1,3 +1,6 @@
+from phi_agent.settings import STATES
+
+
 def bce_agent_to_mind_translator(bce_senses: list):
     mind_bce = {}
 
@@ -13,6 +16,12 @@ def bce_agent_to_mind_translator(bce_senses: list):
 
     return mind_bce
 
-def get_temporal_memory(memories):
-    ## falta por definir
-    pass
+
+def get_temporal_memory(life_episode: dict):
+    temporal_memory = {}
+
+    for sense in life_episode:
+        temporal_memory[sense] = {}
+        for state in STATES:
+            temporal_memory[sense][state] = life_episode[sense]["event"]
+    return temporal_memory
