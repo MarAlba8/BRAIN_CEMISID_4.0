@@ -55,3 +55,6 @@ __pycache__/tensorboard.cpython-39.pyc
 .idea/misc.xml
 .idea/inspectionProfiles/profiles_settings.xml
 src/memory/__pycache__
+.idea/BRAIN_CEMISID_4.0.iml
+.idea/.gitignore
+.idea/vcs.xml

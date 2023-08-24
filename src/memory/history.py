@@ -12,18 +12,18 @@ class History:
             'cultural': Memory('cultural')
         }
 
-    def init_history(self,arr_patters):
-        for sense_patters in arr_patters:
-            for pattern in sense_patters:
+    def init_history(self, arr_patterns):
+        for sense_patterns in arr_patterns:
+            for pattern in sense_patterns:
                 self.add_pattern(pattern[0], pattern[1], pattern[2])
 
-    def get_events(self,arr_events):
+    def get_events(self, arr_events):
         for value in arr_events:
             id_neuron = value[0]
             sense = value[4]
             event = value[3]
             pattern = [value[2]]
-            self.fill_life_episode(id_neuron, sense, event, pattern)
+            self.fill_life_episode(event, sense, id_neuron, pattern)
 
     def get_memory_sequences(self, params: dict):
         memory_sequence_by_sense = {}

@@ -37,9 +37,9 @@ class Memory:
             self.stats[sense] = {'number_registers': 0, 'number_occurrences': 0}
 
         self.stats[sense]['number_occurrences'] = 0
-        for key, values in self.life_history.items():
-            if values['pattern_list'] is not None and event in values['pattern_list']:
-                self.stats[sense]['number_occurrences'] += 1
+        for key, value in self.life_episode.items():
+            if value['pattern_list'] is not None:
+                self.stats[sense]['number_occurrences'] = len(value['pattern_list'])
 
         self.life_episode[event] = life_episode
 

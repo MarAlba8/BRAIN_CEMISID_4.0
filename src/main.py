@@ -15,11 +15,10 @@ if __name__ == '__main__':
 
 
     event_generator = Generator()
-    patters=event_generator.gen_patterns()
-    
+    patterns = event_generator.gen_patterns()
     
     #Inicializar el modulo
-    init_patters=sensory_system.init_patterns(patters)
+    init_patterns = sensory_system.init_patterns(patterns)
     memory.init_history(sensory_system.to_memory())
     
     #entrada de eventos a la red neuronal de michael
