@@ -1,5 +1,5 @@
-from michael_agent.bce import Intelligent_agent
-from michael_agent.bce import Sensory_system
+from michael_agent.intelligent_agent import Intelligent_agent
+from michael_agent.sensory_system import Sensory_system
 
 class Agent_A():
     

@@ -27,11 +27,11 @@ class Generator():
             arr_senses = []
             for pattenr in self.generic_pattern_arr:
                 if pattenr == "pattern_zero" or pattenr == "pattern_zero2" and sense != "time":
-                    arr_senses.append([f"{pattenr}",BCE().zero()])
+                    arr_senses.append([f"{sense}_{pattenr}",BCE().zero()])
                 elif sense == "time":
-                    arr_senses.append([f"{pattenr}",BCE().time_sample()])
+                    arr_senses.append([f"{sense}_{pattenr}",BCE().time_sample()])
                 else:
-                    arr_senses.append([f"{pattenr}",BCE().sample()])
+                    arr_senses.append([f"{sense}_{pattenr}",BCE().sample()])
             arr_patternes_bce.append(arr_senses)
         self.arr_patternes_bce=arr_patternes_bce
         return self.arr_patternes_bce
@@ -42,7 +42,7 @@ class Generator():
         for index, sense in enumerate(self.arr_senses):
             pattenr = random.choice(self.arr_patternes_bce[index])[0]
             event = random.choice(self.generic_event_arr)
-            sensory_event.append(f"{pattenr}:{event}")
+            sensory_event.append(f"{pattenr}:{sense}_{event}")
         return sensory_event
 
     #gen_event(arr_senses,arr_events,patternes_init)
