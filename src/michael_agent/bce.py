@@ -86,7 +86,8 @@ class BCE():
         self.culture.reset()
         self.emotional.reset()
         return self
-
+    
+    @staticmethod
     def average(*args):
         if len(args)==0:
             return None

@@ -211,6 +211,7 @@ class Need():
         self.state=[sign,degree]
         return self
 
+    @staticmethod
     def average(*args):
         if not args:
             return None  # Si no se proporcionan valores, retorna None o algún otro valor apropiado
