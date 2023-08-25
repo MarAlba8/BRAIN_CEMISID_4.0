@@ -10,7 +10,7 @@ class BCE():
         self.culture = need_cul
         self.emotional = need_emo
 
-    def set(self, need_bio, need_cul, need_emo):
+    def set(self, need_bio:int, need_cul:int, need_emo:int):
 
         self.need_bio = Need.set(need_bio)
         self.need_cul = Need.set(need_cul)

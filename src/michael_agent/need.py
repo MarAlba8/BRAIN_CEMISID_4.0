@@ -19,7 +19,7 @@ class Need():
         
          
 
-    def set(self, num, len_degree=LEN_DEGREE):
+    def set(self, num:int, len_degree=LEN_DEGREE):
 
         self.len_sign=2
         self.len_degree=len_degree

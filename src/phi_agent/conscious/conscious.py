@@ -26,21 +26,33 @@ class Conscious:
             "cultural": self.cultural_phi,
             "emotional": self.emotional_phi
         }
+        
+        self.thread = None
+        self.running = False
 
         # Llamar nuevo hilo
+        #self._initiate_consciousness()
+
+    def start(self):
+        self.running = True
         self._initiate_consciousness()
+
+    def stop(self):
+        self.running = False
+        if self.thread:
+            self.thread.join()
 
     def _initiate_consciousness(self):
         print("starting consciousness")
         def show_current_thought():
-            while True:
+            while self.running:
                 print("phi windows")
                 print(self._phi_windows)
                 self.update_phis()
                 sleep(1)
 
-        thread = threading.Thread(target=show_current_thought)
-        thread.start()
+        self.thread = threading.Thread(target=show_current_thought)
+        self.thread.start()
 
     def get_phis(self):
         return self._phi_windows
