@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
         arr_bce_winners=sensory_system.get_bce_from_mind(bce_winners)
 
-        print("BCE Ganadores:",arr_bce_winners)
+        print("BCE Ganadores:",bce_winners)
 
         # update de la red neuronal
         sensory_system.update_neuron(arr_bce_winners)
@@ -79,6 +79,6 @@ if __name__ == '__main__':
         if break_loop:
             break
             
-        time.sleep(1)
+        time.sleep(10)
 
     mind.conscious.stop()

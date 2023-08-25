@@ -41,7 +41,7 @@ class Mind:
                 memory_details=memory_stats[sense]
             )
 
-        log.msg(self.bce_winners)
+        #log.msg(self.bce_winners)
         return self.bce_winners, bce_modified
 
     def update_attention(self, memories: dict, temporal_memory: dict):
