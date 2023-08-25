@@ -28,7 +28,7 @@ if __name__ == '__main__':
     break_loop = False
 
     #Inicializar conciencia
-    mind.conscious.start()
+    #mind.conscious.start()
     for i in range(10):
 
         sensory_events=event_generator.gen_event()
@@ -37,6 +37,8 @@ if __name__ == '__main__':
 
         #entrada de eventos a la red neuronal de michael
         bce_7 = sensory_system.set_event(sensory_events)
+
+        print("Información de los eventos sensoriales:",bce_7)
         memory.get_events(bce_7)
         
         #entrada del comparador 1 de maria para actualizar los bce de las neuronas
@@ -49,6 +51,8 @@ if __name__ == '__main__':
         )
 
         arr_bce_winners=sensory_system.get_bce_from_mind(bce_winners)
+
+        print("BCE Ganadores:",arr_bce_winners)
 
         # update de la red neuronal
         sensory_system.update_neuron(arr_bce_winners)
@@ -76,5 +80,5 @@ if __name__ == '__main__':
             break
             
         time.sleep(1)
-        
+
     mind.conscious.stop()

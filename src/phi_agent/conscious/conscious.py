@@ -32,6 +32,7 @@ class Conscious:
 
         # Llamar nuevo hilo
         #self._initiate_consciousness()
+        self.start()
 
     def start(self):
         self.running = True
