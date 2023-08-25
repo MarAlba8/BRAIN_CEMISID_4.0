@@ -33,19 +33,27 @@ if __name__ == '__main__':
 
         sensory_events=event_generator.gen_event()
         print()
-        print("Eventos sensoriales de entrada:",sensory_events)
+
+        agent_bce=intelligent_agent.status()
+        print("Información del agente:",agent_bce)
+        
+        #print("Eventos sensoriales de entrada:",sensory_events)
 
         #entrada de eventos a la red neuronal de michael
         bce_7 = sensory_system.set_event(sensory_events)
 
         print("Información de los eventos sensoriales:",bce_7)
         memory.get_events(bce_7)
+
+
+
         
         #entrada del comparador 1 de maria para actualizar los bce de las neuronas
         rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
         memory_stats = memory.get_stats()
+        
         bce_winners, bce_modified = mind.call_internal_comparator(
-            agent_bce=intelligent_agent.status(),
+            agent_bce=agent_bce,
             bce_senses=rn_bce_by_senses,
             memory_stats=memory_stats
         )
@@ -79,6 +87,6 @@ if __name__ == '__main__':
         if break_loop:
             break
             
-        time.sleep(10)
+        time.sleep(2.5)
 
     mind.conscious.stop()
