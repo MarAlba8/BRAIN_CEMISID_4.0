@@ -1,10 +1,12 @@
+#Modulo A
 from michael_agent.intelligent_agent import Intelligent_agent
 from michael_agent.sensory_system import Sensory_system
-from michael_agent.generator import Generator
-
+#Modulo B
+from phi_agent.mind.mind import Mind
+#Modulo C
 from memory.history import History
 
-from phi_agent.mind.mind import Mind
+from michael_agent.generator import Generator
 from phi_agent.utils.utils import bce_agent_to_mind_translator, get_temporal_memory
 import time
 from rich import print
@@ -27,15 +29,13 @@ if __name__ == '__main__':
     #Bucle de eventos
     break_loop = False
 
-    #Inicializar conciencia
-    #mind.conscious.start()
     for i in range(10):
 
         sensory_events=event_generator.gen_event()
         print()
 
         agent_bce=intelligent_agent.status()
-        print("Información del agente:",agent_bce)
+        print("\t\t[yellow]Estado Agente Inteligente:\t\t",agent_bce)
         
         #print("Eventos sensoriales de entrada:",sensory_events)
 
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
         memory_stats = memory.get_stats()
         
-        bce_winners, bce_modified = mind.call_internal_comparator(
+        bce_winners, bce_modified, winners = mind.call_internal_comparator(
             agent_bce=agent_bce,
             bce_senses=rn_bce_by_senses,
             memory_stats=memory_stats
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
         arr_bce_winners=sensory_system.get_bce_from_mind(bce_winners)
 
-        print("BCE Ganadores:",bce_winners)
+        print("BCE Ganadores:",bce_winners,winners)
 
         # update de la red neuronal
         sensory_system.update_neuron(arr_bce_winners)
@@ -76,17 +76,20 @@ if __name__ == '__main__':
                 memory.handle_attention(factor, memory_sequence=memory_sequence)
 
         new_bce = mind.get_unified_bce()
-        intelligent_agent.add_bce(new_bce)
+
+        print("[green]BCE de entrada al Agente Inteligente:\t\t\t",new_bce)
+
+        print("\t\t[yellow]Estado Agente Inteligente:\t\t",intelligent_agent.add_bce(new_bce))
 
 
         for factor in intelligent_agent.status().state():
-            if factor[1] == LEN_DEGREE:
-                print("DEAD")
+            if factor[1] == intelligent_agent.length:
+                print("[red]DEAD")
                 break_loop = True
                 break
         if break_loop:
             break
             
-        time.sleep(2.5)
+        time.sleep(5)
 
     mind.conscious.stop()

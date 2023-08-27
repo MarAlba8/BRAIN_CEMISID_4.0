@@ -1,10 +1,11 @@
 from michael_agent.bce import BCE
-
+from michael_agent.need import Need
 
 class Intelligent_agent():
     
     def __init__(self):
         self.status_bce = BCE().zero()
+        self.length = Need().len_degree
 
     def status(self):
         return self.status_bce

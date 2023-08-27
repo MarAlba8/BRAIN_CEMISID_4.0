@@ -33,16 +33,18 @@ class Mind:
         """
         bce_modified = {}
         #print("DEBUG_MIND",memory_stats.values())
+        winners = {}
         for sense in self.senses:
             self.bce_winners[sense] = {}
-            self.bce_winners[sense], bce_modified[sense] = self.senses[sense].bce_comparator(
+            
+            self.bce_winners[sense], bce_modified[sense], winners[sense] = self.senses[sense].bce_comparator(
                 agent_bce=agent_bce,
                 neuronal_network_bce=bce_senses[sense],
                 memory_details=memory_stats[sense]
             )
 
         #log.msg(self.bce_winners)
-        return self.bce_winners, bce_modified
+        return self.bce_winners, bce_modified, winners
 
     def update_attention(self, memories: dict, temporal_memory: dict):
 

@@ -196,7 +196,7 @@ class Need():
 
     def time_sample(self):
         sign=1
-        degree=random.randint(0,self.len_degree-1)
+        degree=random.randint(0,3)
         return Need(sign,degree)
 
     def zero(self):

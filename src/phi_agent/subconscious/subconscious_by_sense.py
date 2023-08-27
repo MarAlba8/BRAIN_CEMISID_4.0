@@ -24,7 +24,7 @@ class SubconsciousBySense:
     def bce_comparator(self, agent_bce: BCE, neuronal_network_bce: dict, memory_details: dict):
         number_registers = memory_details.get("number_registers")
         number_occurrences = memory_details.get("number_occurrences")
-
+        winner = {}
         # log.msg(f"agent_bce: {agent_bce}")
         # log.msg(f"neuronal_network_bce: {neuronal_network_bce}")
 
@@ -49,17 +49,21 @@ class SubconsciousBySense:
                 if tendency <= 50:
                     self.bce_winners[state] = agent_value
                     self.bce_modified[state] = 0
+                    winner[state] = "AI"
                 else:
                     self.bce_winners[state] = rn_value
                     self.bce_modified[state] = 1
+                    winner[state] = "RN"
             elif rn_value >= agent_value:
                 self.bce_winners[state] = rn_value
                 self.bce_modified[state] = 1
+                winner[state] = "RN"
             elif agent_value > rn_value:
                 self.bce_winners[state] = agent_value
                 self.bce_modified[state] = 0
+                winner[state] = "AI"
 
-        return self.bce_winners, self.bce_modified
+        return self.bce_winners, self.bce_modified, winner
 
     def new_thought_selector(
             self,
