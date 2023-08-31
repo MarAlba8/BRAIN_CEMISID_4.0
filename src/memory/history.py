@@ -25,7 +25,7 @@ class History:
                 sense = value[4]
                 event = value[3]
                 pattern = [value[2].rstrip("_bce")]
-                self.add_memory(event, sense, None, pattern)
+                self.add_memory(event, sense, id_neuron, pattern)
 
     def get_events(self, arr_events):
         for value in arr_events:
