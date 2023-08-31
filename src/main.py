@@ -29,12 +29,11 @@ if __name__ == '__main__':
     
     # Inicializar el sensory_system y memoria
     init_patterns = sensory_system.init_patterns(patterns)
+    memory.init_history(sensory_system.to_memory())
 
     #Iniciar eventos en sensory_system
-    init_events=sensory_system.init_event(list(init_memories.values()))
-
-    print(sensory_system.to_memory())
-    memory.init_history(sensory_system.to_memory(), init_memories)
+    init_events=sensory_system.init_event(arr_events)
+    memory.init_history_events(init_events)
 
     # Bucle de eventos
     break_loop = False

@@ -51,7 +51,13 @@ class Sensory_system():
     def init_event(self, arr_events):
         list_return=[]
         for index, _ in enumerate(self.list_senses):
-            list_return.append(self.senses[index].init_event(arr_events[index]))
+            list_id_bce=[]
+            for patter_event in arr_events[index]:
+                self.senses[index].set_event(patter_event)
+                ret_val=self.senses[index].update_neuron(BCE().sample())
+                list_id_bce.append(ret_val)
+            list_return.append(list_id_bce)
+
         return list_return
 
     def init_patterns(self,arr_patternes_bce):
