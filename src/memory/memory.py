@@ -6,28 +6,23 @@ class Memory:
         self.stats = {}
 
     def add_memory(self, event, sense, neuron_number, pattern_list=None):
-        new_memory = {
-            'event': event,
-            'sense': sense,
-            'neuron_number': neuron_number,
-            'pattern_list': pattern_list,
-        }
+        existing_memory = self.life_history.get(event)
 
-        existing_memory = self.life_history.get(event, None)
+        if pattern_list is not None and existing_memory is not None:
+            new_patterns = set(pattern_list) - set(existing_memory.get('pattern_list', []))
+            existing_memory.setdefault('pattern_list', []).extend(new_patterns)
+            existing_memory['neuron_number'] = neuron_number
 
-        if pattern_list is not None:
-            if existing_memory is not None and existing_memory['pattern_list'] is not None:
-                new_patterns = set(pattern_list) - set(existing_memory['pattern_list'])
-                existing_memory['pattern_list'].extend(new_patterns)
-                existing_memory['neuron_number'] = neuron_number
-            else:
-                new_memory['pattern_list'] = list(set(pattern_list))
-
-        self.stats.setdefault(sense, {'number_registers': 0})
+        self.stats.setdefault(sense, {}).setdefault('number_registers', 0)
         self.stats[sense]['number_registers'] += 1
 
         if existing_memory is None:
-            self.life_history[event] = new_memory
+            self.life_history[event] = {
+                'event': event,
+                'sense': sense,
+                'neuron_number': neuron_number,
+                'pattern_list': list(set(pattern_list)) if pattern_list is not None else None
+            }
 
     def fill_life_episode(self, event, sense, neuron_number, pattern_list):
         life_episode = {
