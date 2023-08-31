@@ -48,6 +48,12 @@ class Sensory_system():
             list_return.append(BCE(*bce_list))
         return list_return
 
+    def init_event(self, arr_events):
+        list_return=[]
+        for index, _ in enumerate(self.list_senses):
+            list_return.append(self.senses[index].init_event(arr_events[index]))
+        return list_return
+
     def init_patterns(self,arr_patternes_bce):
         list_return=[]
         for index, _ in enumerate(self.list_senses):

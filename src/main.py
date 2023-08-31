@@ -24,8 +24,16 @@ if __name__ == '__main__':
     # Patrones para inicializar
     patterns = event_generator.gen_patterns()
     init_memories = event_generator.gen_init_events()
+
+    arr_events=list(init_memories.values())
+    
     # Inicializar el sensory_system y memoria
     init_patterns = sensory_system.init_patterns(patterns)
+
+    #Iniciar eventos en sensory_system
+    init_events=sensory_system.init_event(list(init_memories.values()))
+
+    print(sensory_system.to_memory())
     memory.init_history(sensory_system.to_memory(), init_memories)
 
     # Bucle de eventos

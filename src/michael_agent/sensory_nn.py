@@ -31,6 +31,10 @@ class Sensory_NN():
     def update_neuron(self, bce):
         return self.neurons.update_neuron_to_learn(bce)+[self.id]
     
+
+    def init_event(self, arr_events):
+        return self.neurons.init_event(arr_events)
+
     def init_patterns(self, arr_patterns_bce):
         #result_list=[]
         #result_list = [(pattern,bce) if pattern.endswith("_"+self.id) else (pattern+ "_"+self.id, bce) for pattern, bce in arr_patterns_bce]

@@ -24,6 +24,15 @@ class Neurons():
 
         return self.learned_neurons[event]
 
+    def init_event(self, arr_events):
+        list_return = []
+        for event in arr_events:
+            self.set_event(event)
+            data_return = self.update_neuron_to_learn( BCE().sample() )
+            list_return.append(data_return)
+
+        return data_return
+
     def update_neuron_to_learn(self, bce):
         if bool(self.neuron_to_learn):
             event, value = self.neuron_to_learn.popitem()
