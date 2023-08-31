@@ -9,7 +9,7 @@ from phi_agent.settings import SENSES
 from phi_agent.utils.bce import BCE
 
 from phi_agent.settings import log
-
+from rich import print
 
 class Mind:
     def __init__(self):
@@ -84,7 +84,8 @@ class Mind:
             # sleep(1)
 
         log.msg("Current Phis")
-        log.msg(self.conscious.get_phis())
+        #log.msg(self.conscious.get_phis())
+        print(self.conscious.get_phis())
         return self.states_new_thoughts
 
     def get_unified_bce(self):

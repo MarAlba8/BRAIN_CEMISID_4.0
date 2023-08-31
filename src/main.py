@@ -15,6 +15,7 @@ from rich import print
 LEN_DEGREE = 4
 
 if __name__ == '__main__':
+
     sensory_system = Sensory_system()
     intelligent_agent = Intelligent_agent()
     memory = History()
@@ -24,14 +25,13 @@ if __name__ == '__main__':
     # Patrones para inicializar
     patterns = event_generator.gen_patterns()
     init_memories = event_generator.gen_init_events()
-
     arr_events=list(init_memories.values())
     
-    # Inicializar el sensory_system y memoria
+    # Inicializar los patrones en el sensory_system y memoria
     init_patterns = sensory_system.init_patterns(patterns)
     memory.init_history(sensory_system.to_memory())
 
-    #Iniciar eventos en sensory_system
+    #Iniciar eventos en sensory_system y memoria
     init_events=sensory_system.init_event(arr_events)
     memory.init_history_events(init_events)
 
@@ -40,6 +40,7 @@ if __name__ == '__main__':
 
     for i in range(10):
 
+        # Generación de evento aleatorio para los siete sentidos
         sensory_events = event_generator.gen_event()
         print()
 
@@ -49,13 +50,17 @@ if __name__ == '__main__':
         # print("Eventos sensoriales de entrada:",sensory_events)
 
         # entrada de eventos a la red neuronal de michael
-        bce_7 = sensory_system.set_event(sensory_events)
+        sensory_events_bce, sensory_events_ids  = sensory_system.set_event(sensory_events)
 
-        print("Información de los eventos sensoriales:", bce_7)
-        memory.get_events(bce_7)
+        print("Información de los eventos sensoriales:", sensory_events_bce)
 
-        # entrada del comparador 1 de maria para actualizar los bce de las neuronas
-        rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=bce_7)
+        # entrada de eventos a memoria
+        memory.get_events(sensory_events_ids)
+
+        # entrada de bce de la rn por sentido del comparador 1 de maria para actualizar los bce de las neuronas
+        rn_bce_by_senses = bce_agent_to_mind_translator(bce_senses=sensory_events_bce)
+
+        # entrada de memoria del comparador 1 de maria
         memory_stats = memory.get_stats()
 
         bce_winners, bce_modified, winners = mind.call_internal_comparator(

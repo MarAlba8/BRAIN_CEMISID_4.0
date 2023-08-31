@@ -7,7 +7,7 @@ class Intelligent_agent():
         self.status_bce = BCE().zero()
         self.length = Need().len_degree
         self.time = 0
-        self.time_episode = 10
+        self.time_episode = 1
 
     def status(self):
         return self.status_bce

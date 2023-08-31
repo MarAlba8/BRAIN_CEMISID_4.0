@@ -7,7 +7,7 @@ class Generator():
 
     def __init__(self):
         self.n_items = 15
-        pattern_arr = ["pattern_zero", "pattern_zero2"] + ["pattern_{:03d}".format(i) for i in range(self.n_items)]
+        pattern_arr = ["pattern_{:03d}".format(i) for i in range(self.n_items)]
         self.generic_pattern_arr = [self.add_random_suffix(s) for s in pattern_arr]
         self.arr_senses = ["sight", "hearing", "smell", "taste", "touch", "body", "time"]
         self.generic_event_arr = ["event_{:03d}".format(i) for i in range(self.n_items)]
@@ -24,12 +24,12 @@ class Generator():
         for sense in self.arr_senses:
             arr_senses = []
             for pattenr in self.generic_pattern_arr:
-                if pattenr == "pattern_zero" or pattenr == "pattern_zero2" and sense != "time":
-                    arr_senses.append([f"{sense}_{pattenr}", BCE().zero()])
-                elif sense == "time":
-                    arr_senses.append([f"{sense}_{pattenr}", BCE().time_sample()])
-                else:
+                if sense != "time":
                     arr_senses.append([f"{sense}_{pattenr}", BCE().sample()])
+                else:
+                    arr_senses.append([f"{sense}_{pattenr}", BCE().time_sample()])
+
+                    
             arr_patternes_bce.append(arr_senses)
         self.arr_patternes_bce = arr_patternes_bce
         return self.arr_patternes_bce

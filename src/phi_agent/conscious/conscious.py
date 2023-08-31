@@ -1,6 +1,6 @@
 import threading
 from time import sleep
-
+from rich import print
 from phi_agent.conscious.scope import Scope
 
 

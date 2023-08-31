@@ -17,10 +17,16 @@ class Sensory_system():
         return list_id_bce
 
     def set_event(self,arr_event):
-        list_id_bce=[]
+        list_all=[]
+        list_bce=[]
+        list_id=[]
         for index, _ in enumerate(self.list_senses):
-            list_id_bce.append(self.senses[index].set_event(arr_event[index]))
-        return list_id_bce
+            list_all.append(self.senses[index].set_event(arr_event[index]))
+        for sense in list_all:
+            id_neuron, bce, pattern, event, sense_name = sense
+            list_id.append([id_neuron, pattern, event, sense_name])
+            list_bce.append([bce,sense_name])
+        return list_bce, list_id
         
     def to_memory(self):
         list_return=[]
@@ -29,12 +35,19 @@ class Sensory_system():
         return list_return
 
     def update_neuron(self, arr_bce):
-        list_id_bce=[]
+        list_all=[]
+        list_bce=[]
+        list_id=[]
         for index, _ in enumerate(self.list_senses):
             resultado = self.senses[index].update_neuron(arr_bce[index])
             if resultado is not None:
-                list_id_bce.append(resultado)
-        return list_id_bce
+                list_all.append(resultado)
+        for sense in list_all:
+            id_neuron, bce, pattern, event, sense_name = sense
+            list_id.append([id_neuron, pattern, event, sense_name])
+            list_bce.append([bce,sense_name])
+        return list_bce, list_id
+
     
     def get_bce_from_mind(self,dictionary):
         list_return=[]

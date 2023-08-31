@@ -30,9 +30,9 @@ class History:
     def get_events(self, arr_events):
         for value in arr_events:
             id_neuron = value[0]
-            sense = value[4]
-            event = value[3]
-            pattern = [value[2].rstrip("_bce")]
+            sense = value[3]
+            event = value[2]
+            pattern = [value[1].rstrip("_bce")]
             self.fill_life_episode(event, sense, id_neuron, pattern)
 
     def get_memory_sequences(self, params: dict):

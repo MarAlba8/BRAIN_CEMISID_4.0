@@ -215,9 +215,14 @@ class Need():
         self.state=np.array([sign,degree], dtype=np.int_)
         return self
 
+
     def sample(self):
+        # Definir los números y sus pesos
+        n=self.len_degree
+        numbers = list(range(n))
+        weights = [n-i*0.05 for i in range(n)]
         sign=random.randint(0,self.len_sign-1)
-        degree=random.randint(0,self.len_degree-1)
+        degree = random.choices(numbers, weights=weights, k=1)[0]
         return Need(sign,degree)
 
     def time_sample(self):
