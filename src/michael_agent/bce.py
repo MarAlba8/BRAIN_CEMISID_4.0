@@ -9,13 +9,13 @@ class BCE():
         self.biological = need_bio
         self.culture = need_cul
         self.emotional = need_emo
+    @staticmethod
+    def set(need_bio:int, need_cul:int, need_emo:int):
 
-    def set(self, need_bio:int, need_cul:int, need_emo:int):
-
-        self.need_bio = Need.set(need_bio)
-        self.need_cul = Need.set(need_cul)
-        self.need_emo = Need.set(need_emo)
-        return self
+        bio=Need().set(num=need_bio)
+        cul=Need().set(num=need_cul)
+        emo=Need().set(num=need_emo)
+        return BCE(bio,cul,emo)
     
     def state(self):
         return np.array([ self.biological.state, self.culture.state, self.emotional.state ], dtype=np.int_)  
@@ -42,6 +42,12 @@ class BCE():
     def __truediv__(self, escalar):
         return BCE(self.biological/escalar,self.culture/escalar,self.emotional/escalar)
 
+
+    def good(self, move):
+        if self.biological.good(move.biological) and self.culture.good(move.culture) and self.emotional.good(move.emotional):
+            return True
+        else:
+            return False
 
     def __lt__(self, other):    #To get called on comparison using < operator.
         if self.biological < other.biological and self.culture < other.culture and self.emotional < other.emotional:

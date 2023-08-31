@@ -17,17 +17,14 @@ class Need():
         else:
             self.state = np.array([sign,degree], dtype=np.int_) 
         
-         
 
-    def set(self, num:int, len_degree=LEN_DEGREE):
+    @staticmethod
+    def set(num:int, len_degree=LEN_DEGREE):
 
-        self.len_sign=2
-        self.len_degree=len_degree
         sign= 0 if num >=0 else 1
-        degree=abs(num) if abs(num)<=self.len_degree else self.len_degree
+        degree=abs(num) if abs(num)<=len_degree else len_degree
 
-        self.state = np.array([sign,degree], dtype=np.int_) 
-        return self
+        return Need(sign,degree,len_degree)
 
     def __str__(self):
         if self.state[0]!=None and self.state[1]!=None:
@@ -133,31 +130,60 @@ class Need():
             sign=1
         return Need(sign,self.state[1]//abs(escalar))+Need(0,0)
 
+    
+    def good(self, move):
+        if self+move != Need(1,self.len_degree) and self+move != Need(0,self.len_degree):
+            return True
+        else:
+            return False
+ 
+
+
+        # if (a.state[0]==None and a.state[1]==None) and (b.state[0]!=None and b.state[1]!=None):
+        #     return True
+        # elif (b.state[0]==None and b.state[1]==None) and (a.state[0]!=None and a.state[1]!=None):
+        #     return False
+        # elif a.state[0]==0 and b.state[0]==0:
+        #     return a.state[1] < b.state[1]
+        # elif a.state[0]==1 and b.state[0]==1:
+        #     return a.state[1] > b.state[1]
+        # elif a.state[0]==0 and b.state[0]==1:
+        #     return False
+        # elif a.state[0]==1 and b.state[0]==0:
+        #     return True 
+
     def __lt__(self, other):    #To get called on comparison using < operator.
-        if (self.state[0]==None and self.state[1]==None) and (other.state[0]!=None and other.state[1]!=None):
-            return True
-        elif (other.state[0]==None and other.state[1]==None) and (self.state[0]!=None and self.state[1]!=None):
-            return False
-        elif self.state[0]==0 and other.state[0]==0:
-            return self.state[1] < other.state[1]
-        elif self.state[0]==1 and other.state[0]==1:
-            return self.state[1] > other.state[1]
-        elif self.state[0]==0 and other.state[0]==1:
-            return False
-        elif self.state[0]==1 and other.state[0]==0:
-            return True
+        return self.state[1] < other.state[1]
+        # if (self.state[0]==None and self.state[1]==None) and (other.state[0]!=None and other.state[1]!=None):
+        #     return True
+        # elif (other.state[0]==None and other.state[1]==None) and (self.state[0]!=None and self.state[1]!=None):
+        #     return False
+        # elif self.state[0]==0 and other.state[0]==0:
+        #     return self.state[1] < other.state[1]
+        # elif self.state[0]==1 and other.state[0]==1:
+        #     return self.state[1] > other.state[1]
+        # elif self.state[0]==0 and other.state[0]==1:
+        #     return False
+        # elif self.state[0]==1 and other.state[0]==0:
+        #     return True
         
     def __eq__(self, other):    #To get called on comparison using == operator.
-        if self.state[0]==other.state[0] and self.state[1]==other.state[1]:
-            return True
-        else:
-            return False
+        return self.state[1] == other.state[1]
+        # if self.state[0]==other.state[0] and self.state[1]==other.state[1]:
+        #     return True
+        # else:
+        #     return False
 
     def __ne__(self, other):    #To get called on comparison using != operator.
-        if self == other:
-            return False
-        else:
+        if self.state[0]!=other.state[0] or self.state[1]!=other.state[1]:
             return True
+        else:
+            return False
+        
+        # if self == other:
+        #     return False
+        # else:
+        #     return True
 
     def __le__(self, other):    #To get called on comparison using <= operator.
         if self == other:

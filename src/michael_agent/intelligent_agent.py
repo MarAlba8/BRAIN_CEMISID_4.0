@@ -6,12 +6,21 @@ class Intelligent_agent():
     def __init__(self):
         self.status_bce = BCE().zero()
         self.length = Need().len_degree
+        self.time = 0
+        self.time_episode = 10
 
     def status(self):
         return self.status_bce
 
     def add_bce(self,bce):
-        self.status_bce += bce
+        self.time+=1
+
+        if self.time % self.time_episode == 0:
+            self.status_bce -= BCE().set(-1,-1,-1)
+        
+        if self.status_bce.good(bce) or self.time % self.time_episode == 0:
+            self.status_bce += bce
+
         return self.status_bce
     
     def __str__(self) -> str:
