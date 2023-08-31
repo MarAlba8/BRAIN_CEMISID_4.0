@@ -11,19 +11,23 @@ class Memory:
             'sense': sense,
             'neuron_number': neuron_number,
             'pattern_list': pattern_list,
-            'linked_to': []
         }
 
+        existing_memory = self.life_history.get(event, None)
+
         if pattern_list is not None:
-            for pattern in pattern_list:
-                if pattern is not None:
-                    memory = self.life_history.get(pattern)
-                    if memory is not None and memory['pattern_list'] is not None:
-                        memory['linked_to'].append(event)
+            if existing_memory is not None and existing_memory['pattern_list'] is not None:
+                new_patterns = set(pattern_list) - set(existing_memory['pattern_list'])
+                existing_memory['pattern_list'].extend(new_patterns)
+                existing_memory['neuron_number'] = neuron_number
+            else:
+                new_memory['pattern_list'] = list(set(pattern_list))
 
         self.stats.setdefault(sense, {'number_registers': 0})
         self.stats[sense]['number_registers'] += 1
-        self.life_history[event] = new_memory
+
+        if existing_memory is None:
+            self.life_history[event] = new_memory
 
     def fill_life_episode(self, event, sense, neuron_number, pattern_list):
         life_episode = {
@@ -37,11 +41,9 @@ class Memory:
             self.stats[sense] = {'number_registers': 0, 'number_occurrences': 0}
 
         self.stats[sense]['number_occurrences'] = 0
-        for key, value in self.life_episode.items():
-            if value['pattern_list'] is not None:
-                self.stats[sense]['number_occurrences'] = len(value['pattern_list'])
-
         self.life_episode[event] = life_episode
+        seq = self.get_memory_sequence(sense)
+        self.stats[sense]['number_occurrences'] = len(seq.split(','))
 
     def update_memory(self, event, pattern):
         self.life_history[event]['pattern_list'] = [pattern]
@@ -59,35 +61,38 @@ class Memory:
         elif self.life_history.get(new_event_key) is not None and pattern is not None:
             self.update_memory(event=new_event_key, pattern=pattern)
 
-    def get_memory_sequence(self, sense):
-        event = next((value for value in self.life_episode.values() if value['sense'] == sense), None)
-        memory_sequence = []
-
-        if event:
-            element = self.life_history.get(event['event']) or event
-
-            memory_sequence.append(element['event'])
-            for pattern in element['pattern_list']:
-                memory = self.life_history.get(pattern, None)
-                self._traverse_memory(memory=memory, memory_sequence=memory_sequence)
-
-        return ','.join(memory_sequence)
-
-    def _traverse_memory(self, memory: dict, memory_sequence: list):
-        if memory is None:
-            return
-
-        memory_sequence.append(memory['event'])
-
-        if self.life_history[memory['event']]['pattern_list'] is None:
-            return
-
-        for pattern in memory['pattern_list']:
-            if self.life_history.get(pattern, None) is not None:
-                self._traverse_memory(self.life_history[pattern], memory_sequence)
-
     def get_stats(self):
         return self.stats
 
     def get_all(self):
         return self.life_history
+
+    def _traverse_memory(self, memory: dict, memory_sequence: list, visited: set):
+        if memory is None or memory['event'] in visited:
+            return
+
+        visited.add(memory['event'])
+        memory_sequence.append(memory['event'])
+
+        if memory['pattern_list'] is None:
+            return
+
+        for pattern in memory['pattern_list']:
+            if pattern in self.life_history:
+                self._traverse_memory(self.life_history[pattern], memory_sequence, visited)
+
+    def get_memory_sequence(self, sense):
+        event = next((value for value in self.life_episode.values() if value['sense'] == sense), None)
+        memory_sequence = []
+
+        if event:
+            aux = self.life_history.get(event['event'])
+            if aux is not None:
+                combined_patterns = set(event['pattern_list']) | set(aux['pattern_list'])
+                event['pattern_list'] = list(combined_patterns)
+
+            element = event
+
+            self._traverse_memory(element, memory_sequence, set())
+
+        return ','.join(memory_sequence)
