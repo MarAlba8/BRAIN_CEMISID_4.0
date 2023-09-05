@@ -26,7 +26,7 @@ class Sensory_system():
             id_neuron, bce, pattern, event, sense_name = sense
             list_id.append([id_neuron, pattern, event, sense_name])
             list_bce.append([bce,sense_name])
-        return list_bce, list_id
+        return list_bce, list_id, list_all
         
     def to_memory(self):
         list_return=[]
@@ -46,7 +46,7 @@ class Sensory_system():
             id_neuron, bce, pattern, event, sense_name = sense
             list_id.append([id_neuron, pattern, event, sense_name])
             list_bce.append([bce,sense_name])
-        return list_bce, list_id
+        return list_bce, list_id, list_all
 
     
     def get_bce_from_mind(self,dictionary):

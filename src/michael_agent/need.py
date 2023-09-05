@@ -46,23 +46,7 @@ class Need():
 
         if self.state[1] == 0 and other.state[1] == 0:
             return Need(self.state[0],self.state[1])
-        
-        # sign1= [1,-1]
-        # degree1= self.state[1]*sign1[self.state[0]]
-        # degree2= other.state[1]*sign1[other.state[0]]
 
-        # ret_val=degree1+degree2
-        # if ret_val ==0:
-        #     ret_sign=self.state[0]
-        # elif ret_val >0:
-        #     ret_sign=0
-        #     ret_val=min(ret_val,self.len_degree)
-        # else:
-        #     ret_sign=1
-        #     ret_val=min(abs(ret_val),self.len_degree)
-        # return Need(ret_sign,ret_val)
-
-        #self.state[1]+other.state[1]
         elif self.state[0]==0:
            if other.state[0] == 0:
                sign = 0
@@ -136,54 +120,21 @@ class Need():
             return True
         else:
             return False
- 
-
-
-        # if (a.state[0]==None and a.state[1]==None) and (b.state[0]!=None and b.state[1]!=None):
-        #     return True
-        # elif (b.state[0]==None and b.state[1]==None) and (a.state[0]!=None and a.state[1]!=None):
-        #     return False
-        # elif a.state[0]==0 and b.state[0]==0:
-        #     return a.state[1] < b.state[1]
-        # elif a.state[0]==1 and b.state[0]==1:
-        #     return a.state[1] > b.state[1]
-        # elif a.state[0]==0 and b.state[0]==1:
-        #     return False
-        # elif a.state[0]==1 and b.state[0]==0:
-        #     return True 
 
     def __lt__(self, other):    #To get called on comparison using < operator.
         return self.state[1] < other.state[1]
-        # if (self.state[0]==None and self.state[1]==None) and (other.state[0]!=None and other.state[1]!=None):
-        #     return True
-        # elif (other.state[0]==None and other.state[1]==None) and (self.state[0]!=None and self.state[1]!=None):
-        #     return False
-        # elif self.state[0]==0 and other.state[0]==0:
-        #     return self.state[1] < other.state[1]
-        # elif self.state[0]==1 and other.state[0]==1:
-        #     return self.state[1] > other.state[1]
-        # elif self.state[0]==0 and other.state[0]==1:
-        #     return False
-        # elif self.state[0]==1 and other.state[0]==0:
-        #     return True
+
         
     def __eq__(self, other):    #To get called on comparison using == operator.
         return self.state[1] == other.state[1]
-        # if self.state[0]==other.state[0] and self.state[1]==other.state[1]:
-        #     return True
-        # else:
-        #     return False
+
 
     def __ne__(self, other):    #To get called on comparison using != operator.
         if self.state[0]!=other.state[0] or self.state[1]!=other.state[1]:
             return True
         else:
             return False
-        
-        # if self == other:
-        #     return False
-        # else:
-        #     return True
+
 
     def __le__(self, other):    #To get called on comparison using <= operator.
         if self == other:

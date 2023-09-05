@@ -50,9 +50,9 @@ if __name__ == '__main__':
         # print("Eventos sensoriales de entrada:",sensory_events)
 
         # entrada de eventos a la red neuronal de michael
-        sensory_events_bce, sensory_events_ids  = sensory_system.set_event(sensory_events)
+        sensory_events_bce, sensory_events_ids, sensory_events_all  = sensory_system.set_event(sensory_events)
 
-        print("Información de los eventos sensoriales:", sensory_events_bce)
+        print("Información de los eventos sensoriales:", sensory_events_all)
 
         # entrada de eventos a memoria
         memory.get_events(sensory_events_ids)

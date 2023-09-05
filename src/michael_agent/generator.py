@@ -1,7 +1,7 @@
 import random
 
 from michael_agent.bce import BCE
-
+from michael_agent.need import Need
 
 class Generator():
 
@@ -63,6 +63,45 @@ class Generator():
 
         return sensory_init_events
 
-    # gen_event(arr_senses,arr_events,patternes_init)
+    def manual_events(self):
+        Events_BCE0 = [ "sight_educación_c:tesis",
+                        "hearing_musica_e:canción_memorable",
+                        "smell_cafe:olor_cafe",
+                        "taste_dulce:sabor_dulce",
+                        "touch_confortante:frio_confortante",
+                        "body_saludable:saludable",
+                        "time_neutro:tiempo_neutro"
+                    ]
+        Events_BCE1 = [ "sight_educación_c:tesis",
+                        "hearing_musica_e:canción_memorable",
+                        "smell_cafe:olor_cafe",
+                        "taste_dulce:sabor_dulce",
+                        "touch_confortante:frio_confortante",
+                        "body_saludable:saludable",
+                        "time_neutro:tiempo_neutro"
+                    ]
+        Events_BCE2 = [ "sight_educación_c:tesis",
+                        "hearing_musica_e:canción_memorable",
+                        "smell_cafe:olor_cafe",
+                        "taste_dulce:sabor_dulce",
+                        "touch_confortante:frio_confortante",
+                        "body_saludable:saludable",
+                        "time_neutro:tiempo_neutro"
+                    ]
+        
+
+
+        return [Events_BCE0, Events_BCE1, Events_BCE2]
+
+    def manual_patterns(self):
+        patterns_BCE = [ [["sight_educación_c",BCE(Need(0,0),Need(0,2),Need(0,0))]],
+                        [["hearing_musica_e",BCE(Need(0,0),Need(0,0),Need(1,2))]],
+                        [["smell_cafe",BCE(Need(0,0),Need(0,0),Need(0,0))]],
+                        [["taste_dulce",BCE(Need(0,0),Need(0,0),Need(0,0))]],
+                        [["touch_confortante",BCE(Need(0,0),Need(0,0),Need(0,0))]],
+                        [["body_saludable",BCE(Need(0,0),Need(0,0),Need(0,0))]],
+                        [["time_neutro",BCE(Need(0,0),Need(0,0),Need(0,0))]]]
+        return patterns_BCE
+        
 
 # patternes_init

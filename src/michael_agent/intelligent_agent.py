@@ -16,7 +16,8 @@ class Intelligent_agent():
         self.time+=1
 
         if self.time % self.time_episode == 0:
-            self.status_bce -= BCE().set(-1,-1,-1)
+            #self.status_bce -= BCE().set(-1,-1,-1)
+            pass
         
         if self.status_bce.good(bce) or self.time % self.time_episode == 0:
             self.status_bce += bce
